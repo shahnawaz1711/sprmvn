@@ -1,0 +1,23 @@
+services:
+   mysprmvnpro:
+      image: sprmvn.jar
+      ports:
+         - 8080:8080
+      networks:
+         - my_netw
+      build:
+         context: .
+         dockerfile: dockerfile
+   mydatabase:
+      image: mysql
+      container_name: mydbcontainer
+      ports:
+         - 3307:3306
+      networks:
+         - my_netw
+      environment:
+         MYSQL_ROOT_PASSWORD: root
+         MYSQL_DATABASE: sample
+networks:
+   my_netw:
+      driver: bridge

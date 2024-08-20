@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: sprmvn-dep
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: sprmvn-pod
+   template:
+      metadata:
+         labels:
+            app: sprmvn-pod
+      spec:
+         containers:
+            - name: sprmvn-cont
+              image: shahnawaz786/sprmvn:1.0
+              imagePullPolicy: IfNotPresent
+              ports:
+                 - containerPort: 8080
+                 
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: sprmvn-svc
+spec:
+   selector:
+      app: sprmvn-pod
+   ports:
+      - protocol: "TCP"
+        port: 8080
+        targetPort: 8080
+   type: NodePort     
+                          
+               
